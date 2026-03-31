@@ -1,0 +1,19 @@
+# wrangler.toml — Config do Worker API
+
+name = "api-quiz-avcb"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# ============================
+# Troque pelo ID do seu D1 database após criar
+# ============================
+[[d1_databases]]
+binding = "DB"
+database_name = "quiz-avcb-db"
+database_id = "COLE_SEU_DATABASE_ID_AQUI"
+
+# ============================
+# Variáveis de ambiente
+# ============================
+[vars]
+API_KEY = "TROQUE_POR_UMA_CHAVE_SEGURA_QUALQUER"
