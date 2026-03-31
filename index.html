@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Digital para Engenheiros AVCB | Rodrigo Saracino</title>
+<meta name="description" content="Descubra se sua empresa de engenharia está perdendo clientes no digital. Quiz gratuito de 2 minutos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #1a2332;
+    --bg-secondary: #212d3f;
+    --bg-card: #263347;
+    --accent: #f47920;
+    --accent-hover: #ff8c3a;
+    --accent-glow: rgba(244, 121, 32, 0.25);
+    --text-primary: #f0f2f5;
+    --text-secondary: #8a9bb5;
+    --text-muted: #5a6d85;
+    --success: #22c55e;
+    --warning: #eab308;
+    --danger: #ef4444;
+    --border: rgba(255,255,255,0.06);
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* === BACKGROUND EFFECTS === */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(244,121,32,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(59,130,246,0.04) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 20px 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* === HEADER === */
+  .header {
+    text-align: center;
+    padding: 40px 0 32px;
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .header-badge .dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse-dot 2s ease infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+
+  .header h1 .highlight {
+    color: var(--accent);
+  }
+
+  .header p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* === VCARD BANNER === */
+  .vcard-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    gap: 12px;
+  }
+
+  .vcard-banner:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow);
+    transform: translateY(-1px);
+  }
+
+  .vcard-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+  }
+
+  .vcard-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #e06510);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .vcard-text h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .vcard-text span {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  .vcard-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .vcard-btn:hover { background: var(--accent-hover); }
+
+  .vcard-saved {
+    color: var(--success);
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: none;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  /* === QUIZ SECTION === */
+  .quiz-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 24px;
+    margin-bottom: 24px;
+  }
+
+  /* Progress */
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+
+  .progress-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--bg-card);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-right: 14px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .progress-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  /* Question */
+  .question-container {
+    animation: fadeSlideIn 0.35s ease;
+  }
+
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .question-number {
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .question-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 24px;
+  }
+
+  /* Options */
+  .options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    text-align: left;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    line-height: 1.4;
+  }
+
+  .option-btn:hover {
+    border-color: var(--accent);
+    background: rgba(244,121,32,0.06);
+    transform: translateX(4px);
+  }
+
+  .option-btn.selected {
+    border-color: var(--accent);
+    background: rgba(244,121,32,0.1);
+  }
+
+  .option-letter {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .option-btn:hover .option-letter,
+  .option-btn.selected .option-letter {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* === LEAD FORM (before results) === */
+  .lead-form {
+    display: none;
+    animation: fadeSlideIn 0.35s ease;
+  }
+
+  .lead-form h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .lead-form p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  .form-group input {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-family: 'DM Sans', sans-serif;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-group input::placeholder { color: var(--text-muted); }
+  .form-group input:focus { border-color: var(--accent); }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.25s;
+  }
+
+  .submit-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* === RESULTS === */
+  .results-section {
+    display: none;
+    animation: fadeSlideIn 0.4s ease;
+  }
+
+  .score-display {
+    text-align: center;
+    padding: 32px 0;
+  }
+
+  .score-ring {
+    width: 140px; height: 140px;
+    margin: 0 auto 20px;
+    position: relative;
+  }
+
+  .score-ring svg {
+    width: 100%; height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .score-ring .bg-circle {
+    fill: none;
+    stroke: var(--bg-card);
+    stroke-width: 8;
+  }
+
+  .score-ring .score-circle {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 377;
+    stroke-dashoffset: 377;
+    transition: stroke-dashoffset 1.5s ease;
+  }
+
+  .score-value {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+  }
+
+  .score-value small {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .score-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .score-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* Breakdown */
+  .breakdown {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .breakdown-item {
+    background: var(--bg-card);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .breakdown-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .breakdown-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  /* CTA */
+  .cta-section {
+    margin-top: 32px;
+    text-align: center;
+  }
+
+  .cta-section h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .cta-section p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25d366;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+  }
+
+  .whatsapp-btn:hover { background: #1fb855; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.3); }
+
+  .whatsapp-btn svg { width: 22px; height: 22px; }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 40px 0 24px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
+  .footer a { color: var(--accent); text-decoration: none; }
+
+  /* === SCREEN: intro === */
+  #screen-intro, #screen-quiz, #screen-lead, #screen-results {
+    display: none;
+  }
+  #screen-intro { display: block; }
+
+  .intro-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 28px 0;
+  }
+
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .start-btn {
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 18px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-top: 8px;
+  }
+
+  .start-btn:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
+
+  .start-sub {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 480px) {
+    .container { padding: 12px 14px; }
+    .quiz-card { padding: 24px 18px; }
+    .vcard-banner { flex-direction: column; text-align: center; }
+    .vcard-info { flex-direction: column; }
+    .intro-stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- VCARD BANNER -->
+  <div class="vcard-banner" id="vcardBanner" onclick="downloadVCard()">
+    <div class="vcard-info">
+      <div class="vcard-avatar">RS</div>
+      <div class="vcard-text">
+        <h3>Rodrigo Saracino</h3>
+        <span>Marketing Digital · 12 anos de experiência</span>
+      </div>
+    </div>
+    <button class="vcard-btn" id="vcardBtn">Salvar contato</button>
+    <div class="vcard-saved" id="vcardSaved">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Salvo!
+    </div>
+  </div>
+
+  <!-- SCREEN: INTRO -->
+  <div id="screen-intro">
+    <div class="header">
+      <div class="header-badge"><span class="dot"></span> Palestra: Como Vender Mais</div>
+      <h1>Sua empresa de AVCB está <span class="highlight">invisível</span> no digital?</h1>
+      <p>Descubra em 2 minutos se você está perdendo clientes para concorrentes que investem no digital.</p>
+    </div>
+
+    <div class="intro-stats">
+      <div class="stat-card">
+        <div class="stat-number">18 mil</div>
+        <div class="stat-label">buscas/mês por "AVCB" no Google</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">93%</div>
+        <div class="stat-label">dos clientes pesquisam online antes de contratar</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">70%</div>
+        <div class="stat-label">clicam apenas nos 3 primeiros resultados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">2 min</div>
+        <div class="stat-label">para saber seu nível de maturidade digital</div>
+      </div>
+    </div>
+
+    <button class="start-btn" onclick="startQuiz()">Fazer meu diagnóstico gratuito</button>
+    <p class="start-sub">7 perguntas · Resultado imediato</p>
+  </div>
+
+  <!-- SCREEN: QUIZ -->
+  <div id="screen-quiz">
+    <div class="quiz-card">
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="progress-text" id="progressText">1 de 7</span>
+      </div>
+      <div id="questionArea"></div>
+    </div>
+  </div>
+
+  <!-- SCREEN: LEAD FORM -->
+  <div id="screen-lead">
+    <div class="quiz-card">
+      <div class="lead-form" style="display:block;">
+        <h2>Seu diagnóstico está pronto!</h2>
+        <p>Preencha abaixo para receber o resultado detalhado e dicas personalizadas para seu negócio.</p>
+        <div class="form-group">
+          <input type="text" id="leadName" placeholder="Seu nome" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <input type="tel" id="leadPhone" placeholder="WhatsApp (com DDD)" autocomplete="tel">
+        </div>
+        <div class="form-group">
+          <input type="email" id="leadEmail" placeholder="E-mail (opcional)" autocomplete="email">
+        </div>
+        <button class="submit-btn" id="submitLead" onclick="submitLead()">Ver meu resultado</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN: RESULTS -->
+  <div id="screen-results">
+    <div class="quiz-card">
+      <div class="results-section" style="display:block;">
+        <div class="score-display">
+          <div class="score-ring">
+            <svg viewBox="0 0 128 128">
+              <circle class="bg-circle" cx="64" cy="64" r="60"/>
+              <circle class="score-circle" id="scoreCircle" cx="64" cy="64" r="60"/>
+            </svg>
+            <div class="score-value" id="scoreValue">0<small>/70</small></div>
+          </div>
+          <div class="score-label" id="scoreLabel"></div>
+          <div class="score-desc" id="scoreDesc"></div>
+        </div>
+
+        <div class="breakdown" id="breakdown"></div>
+
+        <div class="cta-section">
+          <h3>Quer sair do zero no digital?</h3>
+          <p>Agende um diagnóstico gratuito de 15 minutos. Vou analisar sua presença digital e mostrar onde estão as oportunidades reais.</p>
+          <a class="whatsapp-btn" id="whatsappCTA" href="#" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar diagnóstico grátis
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Rodrigo Saracino · <a href="https://rodrigosaracino.com.br" target="_blank">rodrigosaracino.com.br</a></p>
+  </div>
+
+</div>
+
+<script>
+// ============================
+// CONFIGURAÇÃO
+// ============================
+const CONFIG = {
+  whatsappNumber: '5511999999999',  // <-- SEU NÚMERO AQUI
+  webhookURL: 'https://SEU-N8N.com/webhook/quiz-avcb', // <-- SEU WEBHOOK N8N
+  whatsappMessage: 'Oi Rodrigo! Fiz o diagnóstico digital na palestra e quero agendar meu diagnóstico gratuito de 15 min.'
+};
+
+// ============================
+// PERGUNTAS DO QUIZ
+// ============================
+const questions = [
+  {
+    category: 'Presença Online',
+    question: 'Sua empresa tem um site próprio?',
+    options: [
+      { text: 'Não tenho site', score: 0 },
+      { text: 'Tenho, mas está desatualizado', score: 4 },
+      { text: 'Sim, atualizado e com informações claras', score: 7 },
+      { text: 'Sim, otimizado para Google (SEO) e com blog', score: 10 }
+    ]
+  },
+  {
+    category: 'Busca no Google',
+    question: 'Se alguém buscar "AVCB + sua cidade" no Google, você aparece?',
+    options: [
+      { text: 'Não faço ideia', score: 0 },
+      { text: 'Acho que não apareço', score: 2 },
+      { text: 'Apareço, mas não nas primeiras posições', score: 6 },
+      { text: 'Apareço na primeira página', score: 10 }
+    ]
+  },
+  {
+    category: 'Geração de Leads',
+    question: 'Quantos orçamentos por mês chegam pelo digital (site, Google, redes)?',
+    options: [
+      { text: 'Nenhum — tudo vem de indicação', score: 0 },
+      { text: '1 a 5 por mês', score: 4 },
+      { text: '6 a 15 por mês', score: 7 },
+      { text: 'Mais de 15 por mês', score: 10 }
+    ]
+  },
+  {
+    category: 'Tráfego Pago',
+    question: 'Você investe em anúncios pagos (Google Ads, Meta Ads)?',
+    options: [
+      { text: 'Nunca investi', score: 0 },
+      { text: 'Já impulsionei posts no Instagram', score: 3 },
+      { text: 'Invisto, mas sem estratégia clara', score: 5 },
+      { text: 'Invisto com campanhas estruturadas e métricas', score: 10 }
+    ]
+  },
+  {
+    category: 'Redes Sociais',
+    question: 'Como está sua presença nas redes sociais?',
+    options: [
+      { text: 'Não tenho perfil profissional', score: 0 },
+      { text: 'Tenho, mas posto raramente', score: 3 },
+      { text: 'Posto com alguma frequência, sem estratégia', score: 5 },
+      { text: 'Conteúdo frequente e voltado para atrair clientes', score: 10 }
+    ]
+  },
+  {
+    category: 'Processo Comercial',
+    question: 'O que acontece quando um lead entra em contato?',
+    options: [
+      { text: 'Respondo quando dá, sem processo definido', score: 0 },
+      { text: 'Respondo rápido, mas não faço follow-up', score: 4 },
+      { text: 'Tenho um fluxo básico de atendimento', score: 7 },
+      { text: 'Uso CRM e tenho etapas definidas até o fechamento', score: 10 }
+    ]
+  },
+  {
+    category: 'Análise de Dados',
+    question: 'Você acompanha métricas do seu marketing?',
+    options: [
+      { text: 'Não acompanho nada', score: 0 },
+      { text: 'Olho curtidas e seguidores', score: 2 },
+      { text: 'Acompanho leads e custo por lead', score: 6 },
+      { text: 'Dashboard com dados de aquisição, conversão e ROI', score: 10 }
+    ]
+  }
+];
+
+// ============================
+// STATE
+// ============================
+let currentQ = 0;
+let answers = [];
+let totalScore = 0;
+
+// ============================
+// NAVIGATION
+// ============================
+function showScreen(id) {
+  ['screen-intro','screen-quiz','screen-lead','screen-results'].forEach(s => {
+    document.getElementById(s).style.display = 'none';
+  });
+  document.getElementById(id).style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function startQuiz() {
+  showScreen('screen-quiz');
+  renderQuestion();
+}
+
+// ============================
+// QUIZ LOGIC
+// ============================
+function renderQuestion() {
+  const q = questions[currentQ];
+  const letters = ['A','B','C','D'];
+  const pct = ((currentQ) / questions.length) * 100;
+
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${currentQ + 1} de ${questions.length}`;
+
+  const area = document.getElementById('questionArea');
+  area.innerHTML = `
+    <div class="question-container">
+      <div class="question-number">${q.category}</div>
+      <div class="question-text">${q.question}</div>
+      <div class="options-list">
+        ${q.options.map((opt, i) => `
+          <button class="option-btn" onclick="selectOption(${i}, ${opt.score})">
+            <span class="option-letter">${letters[i]}</span>
+            <span>${opt.text}</span>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function selectOption(index, score) {
+  const btns = document.querySelectorAll('.option-btn');
+  btns.forEach(b => b.classList.remove('selected'));
+  btns[index].classList.add('selected');
+
+  answers.push({
+    question: questions[currentQ].question,
+    category: questions[currentQ].category,
+    answer: questions[currentQ].options[index].text,
+    score: score
+  });
+  totalScore += score;
+
+  setTimeout(() => {
+    currentQ++;
+    if (currentQ < questions.length) {
+      renderQuestion();
+    } else {
+      document.getElementById('progressFill').style.width = '100%';
+      document.getElementById('progressText').textContent = 'Concluído!';
+      setTimeout(() => showScreen('screen-lead'), 300);
+    }
+  }, 350);
+}
+
+// ============================
+// LEAD FORM
+// ============================
+function submitLead() {
+  const name = document.getElementById('leadName').value.trim();
+  const phone = document.getElementById('leadPhone').value.trim();
+  const email = document.getElementById('leadEmail').value.trim();
+
+  if (!name || !phone) {
+    alert('Preencha seu nome e WhatsApp para ver o resultado.');
+    return;
+  }
+
+  const btn = document.getElementById('submitLead');
+  btn.disabled = true;
+  btn.textContent = 'Gerando resultado...';
+
+  // Send to webhook
+  const payload = {
+    name, phone, email,
+    totalScore,
+    maxScore: 70,
+    percentage: Math.round((totalScore / 70) * 100),
+    answers,
+    source: 'quiz-avcb-palestra',
+    timestamp: new Date().toISOString()
+  };
+
+  fetch(CONFIG.webhookURL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).catch(() => {}); // fail silently
+
+  setTimeout(() => {
+    showScreen('screen-results');
+    renderResults(name);
+  }, 800);
+}
+
+// ============================
+// RESULTS
+// ============================
+function renderResults(name) {
+  const pct = Math.round((totalScore / 70) * 100);
+
+  // Score ring animation
+  const circle = document.getElementById('scoreCircle');
+  const circumference = 2 * Math.PI * 60; // r=60
+  const offset = circumference - (pct / 100) * circumference;
+
+  let color = '#ef4444';
+  let label = 'Invisível no Digital';
+  let desc = `${name}, sua empresa praticamente não existe online para quem busca AVCB. A boa notícia: seus concorrentes provavelmente estão no mesmo nível. Quem agir primeiro, leva o mercado.`;
+
+  if (pct >= 30 && pct < 55) {
+    color = '#eab308';
+    label = 'Presença Básica';
+    desc = `${name}, você tem o mínimo, mas não está capturando a demanda que existe. Com ajustes pontuais em busca e processo comercial, o resultado pode mudar rápido.`;
+  } else if (pct >= 55 && pct < 80) {
+    color = '#3b82f6';
+    label = 'No Caminho Certo';
+    desc = `${name}, você já entende o jogo. O próximo passo é otimizar o que tem e escalar com dados. Pequenos ajustes podem trazer grandes saltos.`;
+  } else if (pct >= 80) {
+    color = '#22c55e';
+    label = 'Maturidade Digital Alta';
+    desc = `${name}, você está à frente da maioria. O desafio agora é escalar com eficiência e manter a vantagem competitiva.`;
+  }
+
+  circle.style.stroke = color;
+  document.getElementById('scoreValue').innerHTML = `${totalScore}<small>/70</small>`;
+  document.getElementById('scoreLabel').style.color = color;
+  document.getElementById('scoreLabel').textContent = label;
+  document.getElementById('scoreDesc').textContent = desc;
+
+  setTimeout(() => {
+    circle.style.strokeDashoffset = offset;
+  }, 100);
+
+  // Breakdown
+  const categories = {};
+  answers.forEach(a => {
+    categories[a.category] = a.score;
+  });
+
+  const breakdownHTML = Object.entries(categories).map(([cat, score]) => {
+    let c = '#ef4444';
+    if (score >= 4 && score < 7) c = '#eab308';
+    if (score >= 7) c = '#22c55e';
+    return `
+      <div class="breakdown-item">
+        <span class="breakdown-label">${cat}</span>
+        <span class="breakdown-value" style="color:${c}">${score}/10</span>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('breakdown').innerHTML = breakdownHTML;
+
+  // WhatsApp CTA
+  const msg = encodeURIComponent(`${CONFIG.whatsappMessage}\n\nMeu score: ${totalScore}/70 (${label})`);
+  document.getElementById('whatsappCTA').href = `https://wa.me/${CONFIG.whatsappNumber}?text=${msg}`;
+}
+
+// ============================
+// VCARD
+// ============================
+function downloadVCard() {
+  const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Rodrigo Saracino
+ORG:F Agência - Marketing Digital
+TEL;TYPE=CELL:+5511999999999
+EMAIL:contato@rodrigosaracino.com.br
+URL:https://rodrigosaracino.com.br
+NOTE:Marketing Digital | 12 anos | Google Ads, Meta Ads, Automação
+END:VCARD`;
+
+  const blob = new Blob([vcard], { type: 'text/vcard' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Rodrigo_Saracino.vcf';
+  a.click();
+  URL.revokeObjectURL(url);
+
+  document.getElementById('vcardBtn').style.display = 'none';
+  document.getElementById('vcardSaved').style.display = 'flex';
+}
+</script>
+
+</body>
+</html>
